@@ -1,0 +1,26 @@
+font.family: Times New Roman
+font.size: 12
+pdf.fonttype: 42
+ps.fonttype: 42
+axes.labelsize: 20
+axes.titlesize: 20
+xtick.direction: in
+xtick.labelsize: 20
+xtick.major.size: 10
+xtick.minor.size: 5
+xtick.major.width: 1.2
+xtick.minor.width: 1.0
+ytick.direction: in
+ytick.labelsize: 20
+ytick.major.size: 10
+ytick.minor.size: 5
+ytick.major.width: 1.2
+ytick.minor.width: 1.0
+figure.figsize: 10, 8
+figure.titlesize: 20
+figure.dpi: 300
+figure.autolayout: True
+savefig.dpi: 300
+lines.linewidth: 2
+lines.color: red
+mathtext.default: regular
