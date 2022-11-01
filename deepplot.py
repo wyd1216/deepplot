@@ -24,6 +24,7 @@ from matplotlib.ticker import MultipleLocator, FormatStrFormatter, FuncFormatter
 from sklearn.calibration import calibration_curve
 from itertools import cycle
 
+from deepplot.statistics import DelongTest
 
 plt.clf()
 plt.style.use(pathlib.Path(__file__).parent/'mplstyle'/'wydplot.mplstyle')
@@ -767,6 +768,23 @@ class MultiModelResultsEvaluation:
             metric_dic['data'] = x.name
             eval_table = eval_table.append(metric_dic, ignore_index=True)
         return eval_table
+    
+    def delong_test(self, dataset='test'):
+        score_list = [x.get_score(dataset=dataset, score='y_score1') for x in self._results]
+        labels = self._results[0].get_score(dataset=dataset, score='y_true') 
+        name_list = [x.name for x in self._results]
+        test_df = pd.DataFrame(columns=name_list)
+        for i, s1 in enumerate(score_list):
+            pdict={}
+            for j, s2 in enumerate(score_list):
+                p_value = DelongTest(s1, s2, labels)._compute_z_p()[1]
+                p_value = round(p_value, 4)
+                pdict[name_list[j]] = p_value
+            test_df = test_df.append(pdict, ignore_index=True)
+        test_df.set_index(pd.Series(name_list), inplace=True)
+        return test_df
+                
+        
            
     @property
     def length(self):
